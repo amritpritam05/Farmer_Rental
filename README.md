@@ -68,8 +68,8 @@ Farmer Rental/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/farmer-rental.git
-   cd farmer-rental
+   git clone https://github.com/amritpritam05/Farmer_Rental.git
+   cd Farmer_Rental
    ```
 
 2. **Open in browser**
@@ -136,4 +136,4 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 **Built with ❤️ for the farming community**
 
-*Empowering farmers with modern agricultural solutions* 
+*Empowering farmers with modern agricultural solutions*
