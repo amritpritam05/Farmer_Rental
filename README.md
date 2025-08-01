@@ -68,8 +68,8 @@ Farmer Rental/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/amritpritam05/Farmer_Rental.git
-   cd Farmer_Rental
+   git clone https://github.com/yourusername/farmer-rental.git
+   cd farmer-rental
    ```
 
 2. **Open in browser**
