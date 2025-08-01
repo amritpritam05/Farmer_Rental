@@ -2,6 +2,13 @@
 
 A comprehensive web-based platform for agricultural equipment rental and seed requirements management. This project provides farmers with easy access to modern farming equipment and high-quality seeds for their agricultural needs.
 
+## 🔗 Direct Access
+
+- **🌐 Live Demo**: [View Project](https://amritpritam05.github.io/Farmer_Rental/)
+- **📂 GitHub Repository**: [Source Code](https://github.com/amritpritam05/Farmer_Rental)
+- **📱 Equipment Rental**: [index.html](https://amritpritam05.github.io/Farmer_Rental/index.html)
+- **🌱 Seed Requirements**: [seed-requirements.html](https://amritpritam05.github.io/Farmer_Rental/seed-requirements.html)
+
 ## 🚀 Features
 
 ### Equipment Rental
@@ -68,8 +75,8 @@ Farmer Rental/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/farmer-rental.git
-   cd farmer-rental
+   git clone https://github.com/amritpritam05/Farmer_Rental.git
+   cd Farmer_Rental
    ```
 
 2. **Open in browser**
