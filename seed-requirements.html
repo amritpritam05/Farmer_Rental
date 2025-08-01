@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seed Requirements - Farmer Rental</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body { background: #f8f9fa; }
+    .seed-card { 
+      min-height: 100%; 
+      transition: transform 0.3s ease;
+    }
+    .seed-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    .seed-img { 
+      height: 200px; 
+      object-fit: cover; 
+      width: 100%; 
+    }
+    .navbar-brand {
+      font-size: 2rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    .search-bar { 
+      max-width: 500px; 
+      margin: 20px auto; 
+    }
+    .category-filter {
+      margin: 20px 0;
+    }
+    .category-btn {
+      margin: 5px;
+      border-radius: 25px;
+    }
+    .price-badge {
+      font-size: 1.1rem;
+      padding: 8px 15px;
+    }
+    .season-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">Farmer Rental</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="javascript:goBack()"><i class="fas fa-arrow-left"></i> Back to Equipment</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <div class="container mt-4">
+    <div class="text-center">
+      <h1 class="display-4 text-success">🌱 Seed Requirements</h1>
+      <p class="lead">Find the perfect seeds for your plantation needs</p>
+    </div>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="search-bar">
+    <div class="input-group">
+      <input type="text" id="searchInput" class="form-control" placeholder="Search seeds by name, crop type, or season...">
+      <button class="btn btn-success" type="button">
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Category Filters -->
+  <div class="container">
+    <div class="category-filter text-center">
+      <button class="btn btn-outline-success category-btn active" data-category="all">All Seeds</button>
+      <button class="btn btn-outline-success category-btn" data-category="cereals">Cereals</button>
+      <button class="btn btn-outline-success category-btn" data-category="pulses">Pulses</button>
+      <button class="btn btn-outline-success category-btn" data-category="vegetables">Vegetables</button>
+      <button class="btn btn-outline-success category-btn" data-category="fruits">Fruits</button>
+      <button class="btn btn-outline-success category-btn" data-category="oilseeds">Oil Seeds</button>
+      <button class="btn btn-outline-success category-btn" data-category="spices">Spices</button>
+    </div>
+  </div>
+
+  <!-- Seeds Grid -->
+  <div class="container">
+    <div class="row" id="seedsList">
+      <!-- Cereals -->
+      <div class="col-md-4 mb-4 seed-item" data-category="cereals" data-season="kharif">
+        <div class="card seed-card">
+          <div class="position-relative">
+            <img src="https://3.imimg.com/data3/PF/AE/MY-5933357/basmati-rice-seeds-500x500.jpg" class="seed-img" alt="Rice Seeds">
+            <span class="badge bg-warning season-badge">Kharif</span>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Basmati Rice Seeds</h5>
+            <p class="card-text">High-quality aromatic rice seeds for premium yield</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="badge bg-success price-badge">₹120/kg</span>
+              <button class="btn btn-success btn-sm" onclick="orderSeed('Basmati Rice Seeds', 120)">Order Now</button>
+            </div>
+            <small class="text-muted">Germination: 85% | Purity: 98%</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4 seed-item" data-category="cereals" data-season="rabi">
+        <div class="card seed-card">
+          <div class="position-relative">
+            <img src="https://c8.alamy.com/comp/C0TP6X/durum-wheat-macaroni-wheat-triticum-durum-ear-and-seeds-studio-picture-C0TP6X.jpg" class="seed-img" alt="Wheat Seeds">
+            <span class="badge bg-info season-badge">Rabi</span>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Durum Wheat Seeds</h5>
+            <p class="card-text">Premium wheat seeds for high protein content</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="badge bg-success price-badge">₹95/kg</span>
+              <button class="btn btn-success btn-sm" onclick="orderSeed('Durum Wheat Seeds', 95)">Order Now</button>
+            </div>
+            <small class="text-muted">Germination: 90% | Purity: 99%</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pulses -->
+      <div class="col-md-4 mb-4 seed-item" data-category="pulses" data-season="kharif">
+        <div class="card seed-card">
+          <div class="position-relative">
+            <img src="https://5.imimg.com/data5/SELLER/Default/2023/2/HU/OI/NP/185067263/green-moong-seeds-1000x1000.jpeg" class="seed-img" alt="Moong Seeds">
+            <span class="badge bg-warning season-badge">Kharif</span>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Green Moong Seeds</h5>
+            <p class="card-text">Organic moong seeds for healthy pulse production</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="badge bg-success price-badge">₹180/kg</span>
+              <button class="btn btn-success btn-sm" onclick="orderSeed('Green Moong Seeds', 180)">Order Now</button>
+            </div>
+            <small class="text-muted">Germination: 88% | Purity: 97%</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vegetables -->
+      <div class="col-md-4 mb-4 seed-item" data-category="vegetables" data-season="all">
+        <div class="card seed-card">
+          <div class="position-relative">
+            <img src="https://5.imimg.com/data5/SELLER/Default/2023/5/308956084/LR/JC/XD/2683564/rama-cb68-hybrid-tomato-seeds-1000x1000.jpg" class="seed-img" alt="Tomato Seeds">
+            <span class="badge bg-primary season-badge">All Season</span>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Hybrid Tomato Seeds</h5>
+            <p class="card-text">High-yielding tomato seeds for commercial farming</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="badge bg-success price-badge">₹2500/kg</span>
+              <button class="btn btn-success btn-sm" onclick="orderSeed('Hybrid Tomato Seeds', 2500)">Order Now</button>
+            </div>
+            <small class="text-muted">Germination: 92% | Purity: 99%</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Oil Seeds -->
+      <div class="col-md-4 mb-4 seed-item" data-category="oilseeds" data-season="rabi">
+        <div class="card seed-card">
+          <div class="position-relative">
+            <img src="https://tse2.mm.bing.net/th/id/OIP.P-GhuzaH3oIAau0mQcW4XAAAAA?rs=1&pid=ImgDetMain&o=7&rm=3" class="seed-img" alt="Mustard Seeds">
+            <span class="badge bg-info season-badge">Rabi</span>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Yellow Mustard Seeds</h5>
+            <p class="card-text">High oil content mustard seeds for oil extraction</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="badge bg-success price-badge">₹85/kg</span>
+              <button class="btn btn-success btn-sm" onclick="orderSeed('Yellow Mustard Seeds', 85)">Order Now</button>
+            </div>
+            <small class="text-muted">Germination: 87% | Purity: 96%</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spices -->
+      <div class="col-md-4 mb-4 seed-item" data-category="spices" data-season="kharif">
+        <div class="card seed-card">
+          <div class="position-relative">
+            <img src="https://tse3.mm.bing.net/th/id/OIP.HwaAXcyo5EZ6HT53iMuLtQHaE8?rs=1&pid=ImgDetMain&o=7&rm=3" class="seed-img" alt="Cumin Seeds">
+            <span class="badge bg-warning season-badge">Kharif</span>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Cumin Seeds</h5>
+            <p class="card-text">Aromatic cumin seeds for spice production</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="badge bg-success price-badge">₹320/kg</span>
+              <button class="btn btn-success btn-sm" onclick="orderSeed('Cumin Seeds', 320)">Order Now</button>
+            </div>
+            <small class="text-muted">Germination: 82% | Purity: 95%</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fruits -->
+      <div class="col-md-4 mb-4 seed-item" data-category="fruits" data-season="all">
+        <div class="card seed-card">
+          <div class="position-relative">
+            <img src="https://dehydratedcookbook.com/wp-content/uploads/2023/04/papaya-seed-scoop-1024x683.jpg" class="seed-img" alt="Papaya Seeds">
+            <span class="badge bg-primary season-badge">All Season</span>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Papaya Seeds</h5>
+            <p class="card-text">Sweet papaya seeds for fruit cultivation</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="badge bg-success price-badge">₹1500/kg</span>
+              <button class="btn btn-success btn-sm" onclick="orderSeed('Papaya Seeds', 1500)">Order Now</button>
+            </div>
+            <small class="text-muted">Germination: 75% | Purity: 98%</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- More seeds... -->
+      <div class="col-md-4 mb-4 seed-item" data-category="cereals" data-season="rabi">
+        <div class="card seed-card">
+          <div class="position-relative">
+            <img src="https://thumbs.dreamstime.com/z/barley-seed-wood-spoon-white-background-69612808.jpg" class="seed-img" alt="Barley Seeds">
+            <span class="badge bg-info season-badge">Rabi</span>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Barley Seeds</h5>
+            <p class="card-text">Nutritious barley seeds for animal feed</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="badge bg-success price-badge">₹75/kg</span>
+              <button class="btn btn-success btn-sm" onclick="orderSeed('Barley Seeds', 75)">Order Now</button>
+            </div>
+            <small class="text-muted">Germination: 89% | Purity: 97%</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4 seed-item" data-category="vegetables" data-season="all">
+        <div class="card seed-card">
+          <div class="position-relative">
+            <img src="https://thumbs.dreamstime.com/z/green-bell-pepper-cut-half-seeds-inside-fresh-raw-cluster-close-up-white-background-164216393.jpg" class="seed-img" alt="Capsicum Seeds">
+            <span class="badge bg-primary season-badge">All Season</span>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Bell Pepper Seeds</h5>
+            <p class="card-text">Colorful bell pepper seeds for greenhouse farming</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="badge bg-success price-badge">₹1800/kg</span>
+              <button class="btn btn-success btn-sm" onclick="orderSeed('Bell Pepper Seeds', 1800)">Order Now</button>
+            </div>
+            <small class="text-muted">Germination: 90% | Purity: 99%</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Modal -->
+  <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="orderForm" novalidate>
+          <div class="modal-header">
+            <h5 class="modal-title" id="orderModalLabel">Order Seeds</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="seedName" class="form-label">Seed Name</label>
+              <input type="text" class="form-control" id="seedName" name="seedName" readonly>
+            </div>
+            <div class="mb-3">
+              <label for="farmerName" class="form-label">Farmer Name</label>
+              <input type="text" class="form-control" id="farmerName" name="farmerName" required>
+              <div class="invalid-feedback">Please enter your name.</div>
+            </div>
+            <div class="mb-3">
+              <label for="farmerPhone" class="form-label">Phone Number</label>
+              <input type="tel" class="form-control" id="farmerPhone" name="farmerPhone" pattern="[0-9]{10}" required>
+              <div class="invalid-feedback">Please enter a valid 10-digit phone number.</div>
+            </div>
+            <div class="mb-3">
+              <label for="quantity" class="form-label">Quantity (kg)</label>
+              <input type="number" class="form-control" id="quantity" name="quantity" min="1" required>
+              <div class="invalid-feedback">Please enter quantity.</div>
+            </div>
+            <div class="mb-3">
+              <label for="deliveryAddress" class="form-label">Delivery Address</label>
+              <textarea class="form-control" id="deliveryAddress" name="deliveryAddress" rows="3" required></textarea>
+              <div class="invalid-feedback">Please enter delivery address.</div>
+            </div>
+            <div class="mb-3">
+              <label for="totalPrice" class="form-label">Total Price</label>
+              <input type="text" class="form-control" id="totalPrice" name="totalPrice" readonly>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success">Place Order</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-4 mt-5">
+    <div class="container">
+      <p>&copy; 2024 Farmer Rental. All rights reserved.</p>
+      <p>Contact: +91 9337176258 | Email: amritpritam226@gmail.com</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                 <script>
+       // Function to go back with fallback
+       function goBack() {
+         // Check if there's a previous page in history
+         if (window.history.length > 1) {
+           window.history.back();
+         } else {
+           // If no previous page, go to index.html
+           window.location.href = 'index.html';
+         }
+       }
+
+       $(document).ready(function() {
+       // Search functionality
+       $('#searchInput').on('keyup', function() {
+        var value = $(this).val().toLowerCase();
+        $('#seedsList .seed-item').filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+        });
+      });
+
+      // Category filter
+      $('.category-btn').on('click', function() {
+        $('.category-btn').removeClass('active');
+        $(this).addClass('active');
+        
+        var category = $(this).data('category');
+        if (category === 'all') {
+          $('#seedsList .seed-item').show();
+        } else {
+          $('#seedsList .seed-item').hide();
+          $('#seedsList .seed-item[data-category="' + category + '"]').show();
+        }
+      });
+
+      // Calculate total price
+      $('#quantity').on('input', function() {
+        var quantity = parseInt($(this).val()) || 0;
+        var pricePerKg = parseInt($('#totalPrice').data('price')) || 0;
+        var total = quantity * pricePerKg;
+        $('#totalPrice').val('₹' + total);
+      });
+    });
+
+    // Function to order seeds
+    function orderSeed(seedName, pricePerKg) {
+      $('#seedName').val(seedName);
+      $('#totalPrice').data('price', pricePerKg);
+      $('#totalPrice').val('₹' + pricePerKg);
+      $('#quantity').val(1);
+      
+      var orderModal = new bootstrap.Modal(document.getElementById('orderModal'));
+      orderModal.show();
+    }
+
+    // Form validation
+    $('#orderForm').on('submit', function(event) {
+      var form = this;
+      if (!form.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+      } else {
+        event.preventDefault();
+        alert('Seed order placed successfully! We will contact you soon.');
+        var modal = bootstrap.Modal.getInstance(document.getElementById('orderModal'));
+        modal.hide();
+        form.reset();
+      }
+      $(form).addClass('was-validated');
+    });
+  </script>
+</body>
+</html> 

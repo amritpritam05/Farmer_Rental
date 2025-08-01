@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farming Equipment Rental Platform</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body { background: #f8f9fa; }
+    .equipment-card { min-height: 100%; }
+    .carousel-item img, .card-img-top { object-fit: cover; height: 220px; width: 100%; }
+    .carousel-item img { height: 300px; object-fit: cover; }
+    .carousel-caption {
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(25, 135, 84, 0.8));
+      border-radius: 15px;
+      padding: 25px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+    .carousel-caption h3 {
+      font-size: 2rem;
+      font-weight: bold;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+      margin-bottom: 10px;
+      color: #fff;
+    }
+    .carousel-caption p {
+      font-size: 1rem;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+      color: #e8f5e8;
+    }
+    .carousel-control-prev,
+    .carousel-control-next {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, rgba(25, 135, 84, 0.9), rgba(0, 0, 0, 0.7));
+      border-radius: 50%;
+      margin: auto 20px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      transition: all 0.3s ease;
+    }
+    .carousel-control-prev:hover,
+    .carousel-control-next:hover {
+      background: linear-gradient(135deg, rgba(25, 135, 84, 1), rgba(0, 0, 0, 0.8));
+      transform: scale(1.1);
+      border-color: rgba(255, 255, 255, 0.6);
+    }
+    .carousel-indicators {
+      bottom: 20px;
+    }
+    .carousel-indicators button {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      margin: 0 8px;
+      background-color: rgba(255, 255, 255, 0.5);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      transition: all 0.3s ease;
+    }
+    .carousel-indicators button.active {
+      background-color: #198754;
+      border-color: #fff;
+      transform: scale(1.2);
+    }
+    .search-bar { max-width: 400px; margin: 20px auto; }
+
+    .navbar-brand {
+      font-size: 2rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      margin: 0 auto;
+      padding: 10px 0;
+    }
+    .navbar {
+      justify-content: center;
+      padding: 15px 0;
+    }
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 220px;
+      background: #198754;
+      color: #fff;
+      padding-top: 60px;
+      z-index: 1050;
+      transition: left 0.3s;
+      display: none;
+    }
+    .sidebar.show { display: block; }
+    .sidebar a {
+      color: #fff;
+      display: block;
+      padding: 12px 24px;
+      text-decoration: none;
+      font-size: 1.1rem;
+    }
+    .sidebar a:hover { background: #157347; }
+    .menu-btn {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      z-index: 1100;
+      background: #198754;
+      border: none;
+      color: #fff;
+      font-size: 1.5rem;
+      border-radius: 4px;
+      padding: 4px 10px;
+    }
+    @media (max-width: 600px) {
+      .sidebar { width: 80vw; }
+    }
+    .main-content { margin-left: 0; transition: margin-left 0.3s; }
+    .main-content.sidebar-open { margin-left: 220px; }
+  </style>
+</head>
+<body>
+  <!-- Sidebar Menu -->
+  <button class="menu-btn" id="openSidebar">☰</button>
+  <div class="sidebar" id="sidebarMenu">
+    <a href="#equipmentCarousel">Home / Carousel</a>
+    <a href="#searchInput">Filter/Search</a>
+    <a href="#equipmentList">Browse by Category</a>
+    <a href="#seedRequirementSection">🌱 Seed Requirements</a>
+    <a href="#bookingModal" data-bs-toggle="modal">Request to Book</a>
+    <a href="#contactSection">Contact</a>
+    <a href="#" id="closeSidebar">Close ×</a>
+  </div>
+  <div class="main-content" id="mainContent">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Farmer Rental</a>
+      </div>
+    </nav>
+
+    <!-- Carousel -->
+    <div id="equipmentCarousel" class="carousel slide my-4" data-bs-ride="carousel" style="border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="https://www.kubotamalaysia.com/wp-content/uploads/2021/04/img_product_DC105X_rev1.png" class="d-block w-100" alt="Tractor">
+          <div class="carousel-caption d-none d-md-block">
+            <h3>Modern Tractors</h3>
+            <p>Powerful and efficient farming tractors for all your agricultural needs</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="https://www.deere.africa/assets/images/region-1/tillage/primary-tillage/975-reversible-plow/975_reversible_plow_0001083_large_99b56a5bb2524add6c2c1d8aecacdb8c834897ab_large_955c2d7cb2af05012d8a2e9a49560a6d479404db.jpg" class="d-block w-100" alt="Plough">
+          <div class="carousel-caption d-none d-md-block">
+            <h3>Professional Ploughs</h3>
+            <p>High-quality ploughing equipment for optimal soil preparation</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="https://img.agriexpo.online/images_ag/photo-g/169259-15183381.jpg" class="d-block w-100" alt="Seeder">
+          <div class="carousel-caption d-none d-md-block">
+            <h3>Seed Drill Seeders</h3>
+            <p>Precision seeding equipment for uniform crop distribution</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="https://tse4.mm.bing.net/th/id/OIP.LAkJyRWKxlZn4313VkEobAHaEK?rs=1&pid=ImgDetMain&o=7&rm=3" class="d-block w-100" alt="Sprayer">
+          <div class="carousel-caption d-none d-md-block">
+            <h3>Crop Sprayers</h3>
+            <p>Professional spraying equipment for healthy crop maintenance</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="https://tse2.mm.bing.net/th/id/OIP.Mdoow3lFsdA1hJslu-StnQHaFU?rs=1&pid=ImgDetMain&o=7&rm=3" class="d-block w-100" alt="Rotavator">
+          <div class="carousel-caption d-none d-md-block">
+            <h3>Heavy Duty Rotavators</h3>
+            <p>Advanced soil cultivation equipment for perfect land preparation</p>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#equipmentCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#equipmentCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#equipmentCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#equipmentCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#equipmentCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#equipmentCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+        <button type="button" data-bs-target="#equipmentCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
+      </div>
+    </div>
+
+    <!-- Search/Filter Bar -->
+    <div class="search-bar">
+      <input type="text" id="searchInput" class="form-control" placeholder="Search equipment or category...">
+    </div>
+
+    <!-- Equipment Cards -->
+    <div class="container">
+      <div class="row" id="equipmentList">
+        <!-- Equipment items will be here -->
+        <div class="col-md-4 mb-4 equipment-item" data-category="Tractor">
+          <div class="card equipment-card">
+            <img src="data:image/jpeg;base64,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" class="card-img-top" alt="Tractor">
+            <div class="card-body">
+              <h5 class="card-title">AMRIT PM Tractor</h5>
+              <p class="card-text">Category: Tractor</p>
+              <p class="card-text">Price/Day: <strong>₹2500</strong></p>
+              <p class="card-text">Contact: 9337176258</p>
+              <button class="btn btn-success book-btn" data-equipment="AMRIT PM Tractor">Request to Book</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4 equipment-item" data-category="Harvester">
+          <div class="card equipment-card">
+            <img src="https://www.kubotamalaysia.com/wp-content/uploads/2021/04/img_product_DC105X_rev1.png" class="card-img-top" alt="Harvester">
+            <div class="card-body">
+              <h5 class="card-title">Kubota Harvester</h5>
+              <p class="card-text">Category: Harvester</p>
+              <p class="card-text">Price/Day: <strong>₹2000</strong></p>
+              <p class="card-text">Contact: 9874456780</p>
+              <button class="btn btn-success book-btn" data-equipment="Kubota Harvester">Request to Book</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4 equipment-item" data-category="Plough">
+          <div class="card equipment-card">
+            <img src="https://www.deere.africa/assets/images/region-1/tillage/primary-tillage/975-reversible-plow/975_reversible_plow_0001083_large_99b56a5bb2524add6c2c1d8aecacdb8c834897ab_large_955c2d7cb2af05012d8a2e9a49560a6d479404db.jpg" class="card-img-top" alt="Plough">
+            <div class="card-body">
+              <h5 class="card-title">Steel Plough</h5>
+              <p class="card-text">Category: Plough</p>
+              <p class="card-text">Price/Day: <strong>₹800</strong></p>
+              <p class="card-text">Contact: 9937774865</p>
+              <button class="btn btn-success book-btn" data-equipment="Steel Plough">Request to Book</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4 equipment-item" data-category="Seeder">
+          <div class="card equipment-card">
+            <img src="https://img.agriexpo.online/images_ag/photo-g/169259-15183381.jpg" class="card-img-top" alt="Seeder">
+            <div class="card-body">
+              <h5 class="card-title">Seed Drill Seeder</h5>
+              <p class="card-text">Category: Seeder</p>
+              <p class="card-text">Price/Day: <strong>₹1200</strong></p>
+              <p class="card-text">Contact: 9876543211</p>
+              <button class="btn btn-success book-btn" data-equipment="Seed Drill Seeder">Request to Book</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4 equipment-item" data-category="Sprayer">
+          <div class="card equipment-card">
+            <img src="https://tse4.mm.bing.net/th/id/OIP.LAkJyRWKxlZn4313VkEobAHaEK?rs=1&pid=ImgDetMain&o=7&rm=3" class="card-img-top" alt="Sprayer">
+            <div class="card-body">
+              <h5 class="card-title">Crop Sprayer</h5>
+              <p class="card-text">Category: Sprayer</p>
+              <p class="card-text">Price/Day: <strong>₹900</strong></p>
+              <p class="card-text">Contact: 9123456789</p>
+              <button class="btn btn-success book-btn" data-equipment="Crop Sprayer">Request to Book</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4 equipment-item" data-category="Rotavator">
+          <div class="card equipment-card">
+            <img src="https://tse2.mm.bing.net/th/id/OIP.Mdoow3lFsdA1hJslu-StnQHaFU?rs=1&pid=ImgDetMain&o=7&rm=3" class="card-img-top" alt="Rotavator">
+            <div class="card-body">
+              <h5 class="card-title">Heavy Duty Rotavator</h5>
+              <p class="card-text">Category: Rotavator</p>
+              <p class="card-text">Price/Day: <strong>₹1500</strong></p>
+              <p class="card-text">Contact: 9001234567</p>
+              <button class="btn btn-success book-btn" data-equipment="Heavy Duty Rotavator">Request to Book</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4 equipment-item" data-category="Cultivator">
+          <div class="card equipment-card">
+            <img src="https://tse4.mm.bing.net/th/id/OIP.RDTG65ediS3ThKugwCK5dQHaFN?rs=1&pid=ImgDetMain&o=7&rm=3" class="card-img-top" alt="Cultivator">
+            <div class="card-body">
+              <h5 class="card-title">Spring Cultivator</h5>
+              <p class="card-text">Category: Cultivator</p>
+              <p class="card-text">Price/Day: <strong>₹1100</strong></p>
+              <p class="card-text">Contact: 9012345678</p>
+              <button class="btn btn-success book-btn" data-equipment="Spring Cultivator">Request to Book</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4 equipment-item" data-category="Baler">
+          <div class="card equipment-card">
+            <img src="https://tse4.mm.bing.net/th/id/OIP.Bu9kpdHfSpMBc8-j_7OrkQHaFD?rs=1&pid=ImgDetMain&o=7&rm=3" class="card-img-top" alt="Baler">
+            <div class="card-body">
+              <h5 class="card-title">Round Baler</h5>
+              <p class="card-text">Category: Baler</p>
+              <p class="card-text">Price/Day: <strong>₹1800</strong></p>
+              <p class="card-text">Contact: 9098765432</p>
+              <button class="btn btn-success book-btn" data-equipment="Round Baler">Request to Book</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4 equipment-item" data-category="Tiller">
+          <div class="card equipment-card">
+            <img src="https://images-na.ssl-images-amazon.com/images/I/712n1k998hL._SL1500_.jpg" class="card-img-top" alt="Tiller">
+            <div class="card-body">
+              <h5 class="card-title">Power Tiller</h5>
+              <p class="card-text">Category: Tiller</p>
+              <p class="card-text">Price/Day: <strong>₹1000</strong></p>
+              <p class="card-text">Contact: 9087654321</p>
+              <button class="btn btn-success book-btn" data-equipment="Power Tiller">Request to Book</button>
+            </div>
+          </div>
+        </div>
+        <!-- Add more equipment as needed -->
+      </div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form id="bookingForm" novalidate>
+            <div class="modal-header">
+              <h5 class="modal-title" id="bookingModalLabel">Request to Book</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="equipmentName" class="form-label">Equipment</label>
+                <input type="text" class="form-control" id="equipmentName" name="equipmentName" readonly>
+              </div>
+              <div class="mb-3">
+                <label for="userName" class="form-label">Your Name</label>
+                <input type="text" class="form-control" id="userName" name="userName" required>
+                <div class="invalid-feedback">Please enter your name.</div>
+              </div>
+              <div class="mb-3">
+                <label for="userPhone" class="form-label">Phone Number</label>
+                <input type="tel" class="form-control" id="userPhone" name="userPhone" pattern="[0-9]{10}" required>
+                <div class="invalid-feedback">Please enter a valid 10-digit phone number.</div>
+              </div>
+              <div class="mb-3">
+                <label for="rentalDays" class="form-label">Number of Days</label>
+                <input type="number" class="form-control" id="rentalDays" name="rentalDays" min="1" required>
+                <div class="invalid-feedback">Please enter the number of days.</div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-success">Submit Request</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- Seed Requirements Ad Section -->
+    <div class="container my-5" id="seedRequirementSection">
+      <div class="row">
+        <div class="col-md-8">
+          <!-- Contact Section -->
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Contact Us</h5>
+              <p>Email: amritpritam226@gmail.com</p>
+              <p>Phone: +91 9337176258</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card bg-success text-white">
+            <div class="card-body text-center">
+              <h5 class="card-title">🌱 Seed Requirements</h5>
+              <p class="card-text">Find the perfect seeds for your plantation needs</p>
+              <button class="btn btn-light" onclick="openSeedRequirements()">Explore Seeds</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Bootstrap JS Bundle (includes Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Sidebar menu toggle
+    $(document).ready(function() {
+      // Enhanced carousel functionality
+      $('#equipmentCarousel').on('slide.bs.carousel', function (e) {
+        var nextSlide = $(e.relatedTarget);
+        nextSlide.find('.carousel-caption').addClass('animate__animated animate__fadeInUp');
+      });
+      
+      $('#equipmentCarousel').on('slid.bs.carousel', function (e) {
+        var currentSlide = $(e.target).find('.carousel-item.active');
+        currentSlide.find('.carousel-caption').removeClass('animate__animated animate__fadeInUp');
+      });
+      
+      $('#openSidebar').on('click', function() {
+        $('#sidebarMenu').addClass('show');
+        $('#mainContent').addClass('sidebar-open');
+      });
+      $('#closeSidebar').on('click', function(e) {
+        e.preventDefault();
+        $('#sidebarMenu').removeClass('show');
+        $('#mainContent').removeClass('sidebar-open');
+      });
+      // jQuery search/filter
+      $('#searchInput').on('keyup', function() {
+        var value = $(this).val().toLowerCase();
+        $('#equipmentList .equipment-item').filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+        });
+      });
+      // Open booking modal and set equipment name
+      $(document).on('click', '.book-btn', function() {
+        var equipment = $(this).data('equipment');
+        $('#equipmentName').val(equipment);
+        var bookingModal = new bootstrap.Modal(document.getElementById('bookingModal'));
+        bookingModal.show();
+      });
+      // Form validation
+      $('#bookingForm').on('submit', function(event) {
+        var form = this;
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        } else {
+          event.preventDefault();
+          alert('Booking request submitted!');
+          var modal = bootstrap.Modal.getInstance(document.getElementById('bookingModal'));
+          modal.hide();
+          form.reset();
+        }
+        $(form).addClass('was-validated');
+      });
+      
+      // Function to open seed requirements page
+      window.openSeedRequirements = function() {
+        window.open('seed-requirements.html', '_blank');
+      };
+    });
+  </script>
+</body>
+</html>
